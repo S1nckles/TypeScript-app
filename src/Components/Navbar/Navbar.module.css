@@ -1,0 +1,44 @@
+.nav {
+    width: 220px;
+    grid-area: n;
+    background-color: rgb(138, 138, 139);
+}
+
+.nav a {
+    text-decoration: none;
+    color: yellow;
+}
+
+.item {
+    padding-left: 4px;
+    font-size: large;
+}
+
+.nav__settings {
+    padding: 20px 0 0 5px;
+    font-size: large;
+}
+
+/* Friends */
+
+.friends {
+    padding-top: 50px;
+
+    text-align: center;
+    color: black;
+}
+
+.friends img {
+    border-radius: 50%;
+    width: 46px;
+    padding: 0 10px;
+}
+
+.friends__item {
+    color: black;
+}
+
+.friends__item a {
+    color: black;
+    padding: 0 10px;
+}

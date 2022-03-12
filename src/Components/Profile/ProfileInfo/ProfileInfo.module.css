@@ -1,0 +1,28 @@
+.descriptionBlock {
+    padding: 0 10px;
+}
+
+.profileImg {
+    border-radius: 20px;
+    padding: 10px 0 0 10px;
+}
+
+.status {
+    margin: -20px 0px 15px;
+}
+
+.contact {
+    padding-left: 10px;
+}
+
+.formControl.error input,
+.formControl.error textarea 
+{
+    border: solid red 1px;
+}
+
+.formSummaryError {
+    border: red 1px solid;
+    padding: 5px;
+    color: red;
+}
