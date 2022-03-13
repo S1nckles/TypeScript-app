@@ -1,4 +1,4 @@
-import React from "react";
+// import { PostType } from "../types/Types";            ~TS~
 import profileReducer, { addPostActionCreator, deletePost } from "./profile-reducer";
 
 let state = {
@@ -7,7 +7,8 @@ let state = {
         {id: 2, message: 'Wellcome to Navi', likesCount: 4},
         {id: 3, message: 'Hello', likesCount: 10},
         {id: 4, message: "It's IT sphere", likesCount: 4}
-    ]      
+    ] 
+    //as PostType      ~TS~
 };
 
 it('length of post should be incremented', () => {

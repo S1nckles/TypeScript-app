@@ -80,7 +80,7 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 import Dialogs from "./Dialogs";
-import { addMessageCreator } from "../../Redux/dialogs-reducer.js";
+import { addMessageCreator } from "../../Redux/dialogs-reducer.ts";
 import { connect } from "react-redux";
 import { compose } from 'redux';
 // import { withAuthRedirect } from "../hoc/withAuthRedirect";

@@ -4,7 +4,7 @@ import Navbar from './Components/Navbar/Navbar';
 import {Route, Routes} from 'react-router-dom';                                         //, withRouter
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import {initializeApp} from "./Redux/app-reducer.js";
+import {initializeApp} from "./Redux/app-reducer.ts";
 // import { withSuspense } from './Components/hoc/withSuspense';      //Suspense - Пердохранители
 import Login from './Components/Login/Login';
 import HeaderContainer from './Components/Header/HeaderContainer';

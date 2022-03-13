@@ -1,6 +1,6 @@
 let initialState = {}
 
-const sidePanelReducer = (state = initialState, action) => {
+const sidePanelReducer = (state = initialState, action: any) => {
 
     return state;
 }

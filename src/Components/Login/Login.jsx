@@ -3,7 +3,7 @@ import { Field, reduxForm } from "redux-form";
 import { Input } from "../common/FormsControls/FormsControls";
 import { required } from "../../utils/validators/validators";
 import {connect} from "react-redux";
-import {login} from "../../Redux/auth-reducer";
+import {login} from "../../Redux/auth-reducer.ts";
 // import { Navigate } from "react-router-dom";
 import s from "../common/FormsControls/FormsControls.module.css";
 
@@ -15,7 +15,7 @@ const LoginForm = ({handleSubmit, error, captchaUrl}) => {
             <Field type={"password"} name={"password"} placeholder={"Password"} component={Input} validate={[required]} />
             <Field type={"checkbox"} name={"rememberMe"} component={Input} /> remember me
 
-            {captchaUrl && <img src={captchaUrl} />}
+            {captchaUrl && <img src={captchaUrl} alt='12' />}
             {captchaUrl && <Field name={"captcha"} placeholder={"Symbol from img"} component={Input} validate={[required]} /> }
 
             { error && <div className={s.formSummaryError}>
