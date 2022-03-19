@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {HashRouter} from 'react-router-dom';
-import store from './Redux/redux-store.js';
+import store from './Redux/redux-store.ts';
 import { Provider } from 'react-redux';
 
 ReactDOM.render(

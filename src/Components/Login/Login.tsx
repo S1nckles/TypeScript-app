@@ -1,13 +1,23 @@
-import React from "react";
+import React, { FC } from "react";
 import { Field, reduxForm } from "redux-form";
 import { Input } from "../common/FormsControls/FormsControls";
 import { required } from "../../utils/validators/validators";
 import {connect} from "react-redux";
+// @ts-ignore
 import {login} from "../../Redux/auth-reducer.ts";
-// import { Navigate } from "react-router-dom";
+// @ts-ignore
 import s from "../common/FormsControls/FormsControls.module.css";
+// import { Navigate } from "react-router-dom";
+import AppStateType from "../../types/Types"
 
-const LoginForm = ({handleSubmit, error, captchaUrl}) => {
+type PropsType = {
+    handleSubmit: string 
+    error: boolean
+    captchaUrl: string
+    login: any
+}
+
+const LoginForm: FC<PropsType> = ({handleSubmit, error, captchaUrl}) => {
     debugger;
     return (
         <form onSubmit={handleSubmit}>
@@ -31,8 +41,8 @@ const LoginForm = ({handleSubmit, error, captchaUrl}) => {
 
 const ReduxLoginForm = reduxForm({form: 'login'})(LoginForm)
 
-const Login = (props) => {
-    const onSubmit = (formData) => {
+const Login: FC<PropsType>= (props) => {
+    const onSubmit = (formData: any) => {
         props.login(formData.email, formData.password, formData.rememberMe, formData.captchaUrl);
     }
 
@@ -46,7 +56,7 @@ const Login = (props) => {
     </div>
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: AppStateType) => ({
     captchaUrl: state.auth.captchaUrl,
     isAuth: state.auth.isAuth
 })

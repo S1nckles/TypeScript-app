@@ -1,16 +1,16 @@
 import React from 'react';
 import './App.css';
-import Navbar from './Components/Navbar/Navbar';
+import Navbar from './Components/Navbar/Navbar.tsx';
 import {Route, Routes} from 'react-router-dom';                                         //, withRouter
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import {initializeApp} from "./Redux/app-reducer.ts";
 // import { withSuspense } from './Components/hoc/withSuspense';      //Suspense - Пердохранители
-import Login from './Components/Login/Login';
+import Login from './Components/Login/Login.tsx';
 import HeaderContainer from './Components/Header/HeaderContainer';
 import DialogsContainer from './Components/Dialogs/DialogsContainer';
-import UsersContainer from './Components/Users/UsersContainer';
-import Profile from './Components/Profile/Profile';
+import UsersContainer from './Components/Users/UsersContainer.tsx';
+import Profile from './Components/Profile/Profile.tsx';
 // import Preloader from './Components/common/Preloader/Preloader';
 
 

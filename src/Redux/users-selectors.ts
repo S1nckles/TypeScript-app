@@ -1,6 +1,7 @@
 import { createSelector } from 'reselect';
+import { AppStateType } from './redux-store';
 
-const getUsersSelector = (state) => {
+const getUsersSelector = (state: AppStateType) => {
     return state.usersPage.users
 }
 export const getUsers = createSelector(getUsersSelector, (users) => {
@@ -8,7 +9,7 @@ export const getUsers = createSelector(getUsersSelector, (users) => {
 })
 
 
-const getPageSizeSelector = (state) => {
+const getPageSizeSelector = (state: AppStateType) => {
     return state.usersPage.pageSize
 }
 export const getPageSize = createSelector(getPageSizeSelector, (pageSize) => {
@@ -16,7 +17,7 @@ export const getPageSize = createSelector(getPageSizeSelector, (pageSize) => {
 })
 
 
-const getTotalUsersCountSelector = (state) => {
+const getTotalUsersCountSelector = (state: AppStateType) => {
     return state.usersPage.totalUsersCount
 }
 export const getTotalUsersCount = createSelector(getTotalUsersCountSelector, (totalUsersCount) => {
@@ -24,7 +25,7 @@ export const getTotalUsersCount = createSelector(getTotalUsersCountSelector, (to
 })
 
 
-const getCurrentPageSelector = (state) => {
+const getCurrentPageSelector = (state: AppStateType) => {
     return state.usersPage.currentPage
 }
 export const getCurrentPage = createSelector(getCurrentPageSelector, (currentPage) => {
@@ -32,7 +33,7 @@ export const getCurrentPage = createSelector(getCurrentPageSelector, (currentPag
 })
 
 
-const getIsFetchingSelector = (state) => {
+const getIsFetchingSelector = (state: AppStateType) => {
     return state.usersPage.isFetching
 }
 export const getIsFetching = createSelector(getIsFetchingSelector, (isFetching) => {
@@ -40,7 +41,7 @@ export const getIsFetching = createSelector(getIsFetchingSelector, (isFetching) 
 })
 
 
-const getFollowingInProgresSelector = (state) => {
+const getFollowingInProgresSelector = (state: AppStateType) => {
     return state.usersPage.followingInProgress
 }
 export const getFollowingInProgres = createSelector(getFollowingInProgresSelector, (followingInProgress) => {

@@ -1,8 +1,19 @@
-import React from "react";
-import MyPostsContainer from "./MyPosts/MyPostsContainer";
+import React, { FC } from "react";
+import MyPostsContainer from "./MyPosts/MyPostsContainer.tsx";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
+//@ts-ignore
+import ProfileType from "../../types";
 
-const Profile = (props) => {
+type PropsType = {
+    savePhoto: boolean 
+    isOwner: boolean
+    profile: Array<ProfileType> 
+    status: string | null
+    updateStatus: string | null
+    saveProfile: any
+}
+
+const Profile: FC<PropsType> = (props) => {
     debugger;
     return (
         <div>

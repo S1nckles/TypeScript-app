@@ -1,5 +1,7 @@
+import { AppStateType } from './redux-store';
 import { stopSubmit } from "redux-form";
-import { AuthAPI, SecurityAPI } from "../api/api";
+import { AuthAPI, ResultCodesEnum, ResultCodeWithCaptcha, SecurityAPI } from "../api/api";
+import { ThunkAction } from 'redux-thunk';
 
 let SET_USER_DATA = 'SET_USER_DATA';
 let GET_CAPTCHA_URL_SUCCESS = 'GET_CAPTCHA_URL_SUCCESS';
@@ -35,11 +37,13 @@ const authReducer = (state = initialState, action: any): InitialStateType => {
     }
 }
 
+
+type ActionsTypes = GetCaptchaUrlSuccessActionType | SetAuthUserDataActionType
+
 type GetCaptchaUrlSuccessActionType = {
     type: typeof GET_CAPTCHA_URL_SUCCESS,
     payload: {captchaUrl: string | null} 
 }
-
 type SetAuthUserDataActionType = {
     type: typeof SET_USER_DATA,
     payload: {
@@ -51,41 +55,47 @@ type SetAuthUserDataActionType = {
 
 export const getCaptchaUrlSuccess = (captchaUrl: string | null): GetCaptchaUrlSuccessActionType => ({ type: GET_CAPTCHA_URL_SUCCESS, payload: {captchaUrl} })
 export const setAuthUserData = (id: number | null, email: string | null, login: string | null, isAuth: boolean): SetAuthUserDataActionType => ({ type: SET_USER_DATA, payload: {id, email, login, isAuth} })
-export const getAuthUserData = () => (dispatch: any) => {
-    AuthAPI.me()
-        .then(response => {
-            if (response.data.resultCode === 0) {
-                let { id, login, email } = response.data.data;
-                dispatch(setAuthUserData(id, login, email, true))
-            }
-        });
+
+export const getAuthUserData = ()
+            : ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes> => async (dispatch, getState) => {
+    let meData = await AuthAPI.me()
+
+    if (meData.resultCode === ResultCodesEnum.Success ) {
+        let { id, login, email } = meData.data;
+        dispatch(setAuthUserData(id, login, email, true))
+    }
 }
 
-export const login = (email, password, rememberMe, captcha) => (dispatch: any) => {
-    AuthAPI.login(email, password, rememberMe)
-        .then(response => {
-            if (response.data.resultCode === 0) {
-               dispatch(getAuthUserData())
-            } else {
-                dispatch(getCaptchaUrl());
+export const login = (email: string, password: string, rememberMe: boolean, captcha: string)
+            : ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes> => async (dispatch, getState) => {
+    let data = await AuthAPI.login(email, password, rememberMe, captcha);
 
-                let message = response.data.message.length > 0 ? response.data.message[0] : "Some error";
-                dispatch(stopSubmit("login", {_error: message}));
-            }
-        });
+    if (data.data.resultCode === ResultCodesEnum.Success) {
+
+        dispatch(getAuthUserData())
+    } else {
+        if (data.data.resultCode === ResultCodeWithCaptcha.CaptchaIsRequired) {
+            dispatch(getCaptchaUrl());
+        }
+        
+        let message = data.data.messages.length > 0 ? data.data.messages[0] : "Some error";
+        // @ts-ignore
+        dispatch(stopSubmit("login", {_error: message}));
+    }
 }
 
-export const logOut = () => (dispatch: any) => {
-    AuthAPI.loginOut()
-        .then(response => {
-            if (response.data.resultCode === 0) {
-               dispatch(getAuthUserData());
-            }
-        });
+export const logOut = ()
+            : ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes> => async (dispatch, getState) => {
+    let data = await AuthAPI.logOut();
+
+    if (data.data.resultCode === ResultCodesEnum.Success) {
+       dispatch(getAuthUserData());
+    }
 }
 
-export const getCaptchaUrl = () => async (dispatch: any) => {
-    const response = await SecurityAPI.getCaptchaUrl();
+export const getCaptchaUrl = ()
+            : ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes> => async (dispatch, getState) => {
+    const response = await SecurityAPI.getCaptcha();
     const captchaUrl = response.data.url  
     dispatch(getCaptchaUrlSuccess(captchaUrl));
 }

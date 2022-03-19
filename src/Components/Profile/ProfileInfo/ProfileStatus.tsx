@@ -1,7 +1,18 @@
 import React from "react";
+//@ts-ignore
 import s from '../ProfileInfo/ProfileInfo.module.css';
 
-class ProfileStatus extends React.Component {
+type PropsType = {
+    status: string
+    updateStatus: () => void
+}
+
+type StateType = {
+    status: string
+    editMode: boolean
+}
+
+class ProfileStatus extends React.Component<PropsType, StateType> {
     state = {
         editMode: false,
         status: this.props.status
@@ -17,17 +28,17 @@ class ProfileStatus extends React.Component {
         this.setState({
             editMode: false
         });
-        debugger;
-        this.props.updateStatus(this.state.status);
+        this.props.updateStatus();
+                        //this.state.status
     }
 
-    onStatusChange = (e) => {
+    onStatusChange = (e: { currentTarget: { value: any; }; }) => {
         this.setState( {
             status: e.currentTarget.value
         } ); 
     }
 
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate(prevProps: PropsType, prevState: StateType) {
         if (prevProps.status !== this.props.status) {
             this.setState({
                 status: this.props.status

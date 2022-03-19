@@ -1,14 +1,28 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, FC } from 'react';
 import { connect } from 'react-redux';
-import Profile from '../Profile/Profile.jsx';
+import Profile from './Profile.tsx';
 import { getUserProfile, getStatus, updateStatus, savePhoto, saveProfile } from '../../Redux/profile-reducer.js';
+//@ts-ignore
 import { withRouter } from "react-router-dom";
 // import { withAuthRedirect } from '../hoc/withAuthRedirect.js';
 import { compose } from 'redux';
+import ProfileType from "../../types";
 
-const ProfileContainer = (props) => {
+type PropsType = {
+    match: { params: { userId: any } } 
+    profile: Array<ProfileType>
+    status: string
+    updateStatus: string
+    savePhoto: boolean 
+    authorizedUserId: any
+    getUserProfile: () => {userId: any}
+    getStatus: () => void
+}
 
-    const refreshProfile = (props) => {
+const ProfileContainer: FC<PropsType> = (props) => {
+    debugger;
+
+    const refreshProfile: FC<PropsType> = (props) => {
         debugger;
         let userId = props.match.params.userId;
         if (!userId) {
@@ -43,7 +57,7 @@ const ProfileContainer = (props) => {
                 status={props.status}
                 updateStatus={props.updateStatus}
                 isOwner={!props.match.params.userId}
-                savePhoto={props.savePhoto} />
+                savePhoto={props.savePhoto} saveProfile={undefined} />
         )
     // }
 }

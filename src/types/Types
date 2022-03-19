@@ -24,3 +24,10 @@ export type ProfileType = {
     fullName: string,
     contacts: ContactsType
 }
+
+export type UserType = {
+    id: number
+    name: string
+    status: string
+    photos: PhotosType
+}

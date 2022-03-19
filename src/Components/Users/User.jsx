@@ -2,7 +2,7 @@ import React from "react";
 import s from "./Users.module.css";
 import userFindPhoto from '../../assets/img/Find_users_ava.png';
 import { NavLink } from 'react-router-dom';
-import Paginator from "./Paginator/Paginator.jsx";
+import Paginator from "./Paginator/Paginator.tsx";
 
 let Users = ({currentPage, onPageChanged, pageSize, totalUsersCount, ...props}) => {
     let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
@@ -11,7 +11,6 @@ let Users = ({currentPage, onPageChanged, pageSize, totalUsersCount, ...props}) 
     for (let i = 1; i <= pagesCount; i++) {
         pages.push(i);
     }
-    debugger;
 
     return <div>
         {/* <div>
