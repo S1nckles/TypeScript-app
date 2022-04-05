@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import { Field, reduxForm } from "redux-form";
-import { Textarea } from "../../common/FormsControls/FormsControls.jsx";
-import { maxLengthCreator, required } from "../../../utils/validators/validators.js";
+import { Textarea } from "../../common/FormsControls/FormsControls.tsx";
+import { maxLengthCreator, required } from "../../../utils/validators/validators.ts";
 import s from './MyPosts.module.css';
 import Post from "./Post/Post.tsx";
 

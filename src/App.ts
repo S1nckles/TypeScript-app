@@ -7,18 +7,28 @@ import { compose } from 'redux';
 import {initializeApp} from "./Redux/app-reducer.ts";
 // import { withSuspense } from './Components/hoc/withSuspense';      //Suspense - Пердохранители
 import Login from './Components/Login/Login.tsx';
-import HeaderContainer from './Components/Header/HeaderContainer';
+import HeaderContainer from './Components/Header/HeaderContainer.tsx';
 import DialogsContainer from './Components/Dialogs/DialogsContainer';
 import UsersContainer from './Components/Users/UsersContainer.tsx';
 import Profile from './Components/Profile/Profile.tsx';
 // import Preloader from './Components/common/Preloader/Preloader';
 
+type MapPropsType = ReturnType<typeof mapStateToProps>
+type DispatchPropsType = {
+  initializeApp: () => void
+}
 
 // const Profile = React.lazy(() => import('./Components/Profile/Profile'));  // No working
  
-class App extends React.Component {
+class App extends Component<MapPropsType & DispatchPropsType> {
+
+  catchAllUnhandledErrors = (e: PromiseRejectionEvent) => {
+    alert("Some error occured");
+  }
+
   componentDidMount() {
-    this.props.initializeApp();     
+    this.props.initializeApp();
+    window.addEventListener("unhandledrejection", this.catchAllUnhandledErrors);    
     // AuthAPI.me()
     // .then(response => {
     //     if (response.data.resultCode === 0) {
@@ -26,6 +36,10 @@ class App extends React.Component {
     //         this.props.setAuthUserData(id, login, email)
     //     }
     // });
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("unhandledrejection", this.catchAllUnhandledErrors);
   }
 
   render() {

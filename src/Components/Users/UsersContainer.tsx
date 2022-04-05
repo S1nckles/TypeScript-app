@@ -4,7 +4,7 @@ import { follow, setUsers, unfollow, setUsersTotalCount,
          toggleIsFetching, toggleIsFollowingProgress, requestUsers } from '../../Redux/users-reducer.ts';
 import Users from "./Users.tsx";
 import Preloader from "../common/Preloader/Preloader";
-import { UsersAPI } from "../../api/api";
+import { UsersAPI } from "../../api/api.ts";
 // import { withAuthRedirect } from "../hoc/withAuthRedirect";
 import { compose } from "redux";
 import { getCurrentPage, getFollowingInProgres, getUsers, getIsFetching, 

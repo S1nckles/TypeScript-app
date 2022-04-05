@@ -106,8 +106,9 @@ export const ProfileAPI = {
 
 
 export const AuthAPI = {
-    me() {
-        return instance.get<LoginResponseType>(`auth/me`).then(res => res.data); 
+    async me() {
+        const res = await instance.get<LoginResponseType>(`auth/me`);
+        return res.data; 
     },
     login(email: string, password: string, rememberMe = false, captcha: null | string = null) {
         return instance.post<LoginResponseType>(`auth/login`, {email, password, rememberMe, captcha});

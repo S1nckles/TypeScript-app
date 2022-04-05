@@ -1,23 +1,24 @@
 import React, { FC } from "react";
-import { Field, reduxForm } from "redux-form";
-import { Input } from "../common/FormsControls/FormsControls";
-import { required } from "../../utils/validators/validators";
+import { Field, InjectedFormProps, reduxForm } from "redux-form";
+//@ts-ignore
+import { Input } from "../common/FormsControls/FormsControls.tsx";
+//@ts-ignore
+import { required } from "../../utils/validators/validators.ts";
 import {connect} from "react-redux";
 // @ts-ignore
 import {login} from "../../Redux/auth-reducer.ts";
 // @ts-ignore
 import s from "../common/FormsControls/FormsControls.module.css";
 // import { Navigate } from "react-router-dom";
+// @ts-ignore
 import AppStateType from "../../types/Types"
+import { Navigate } from "react-router-dom";
 
-type PropsType = {
-    handleSubmit: string 
-    error: boolean
+type LoginFormOwnProps = {
     captchaUrl: string
-    login: any
 }
 
-const LoginForm: FC<PropsType> = ({handleSubmit, error, captchaUrl}) => {
+const LoginForm: FC<InjectedFormProps<LoginFormValuesType, LoginFormOwnProps> & LoginFormOwnProps> = ({handleSubmit, error, captchaUrl}) => {
     debugger;
     return (
         <form onSubmit={handleSubmit}>
@@ -39,16 +40,34 @@ const LoginForm: FC<PropsType> = ({handleSubmit, error, captchaUrl}) => {
     )
 }
 
-const ReduxLoginForm = reduxForm({form: 'login'})(LoginForm)
+type LoginFormPropetiesType = "captcha" | "rememberMe"
 
-const Login: FC<PropsType>= (props) => {
+const ReduxLoginForm = reduxForm<LoginFormValuesType, LoginFormOwnProps>({form: 'login'})(LoginForm)
+
+type MapStatePropsType = {
+    captchaUrl: string | null
+    isAuth: boolean
+}
+
+type MapDispatchPropsType = {
+    login: (email: string, password: string, rememberMe: boolean, captcha: string) => void
+}
+
+type LoginFormValuesType = {
+    captcha: string
+    rememberMe: boolean
+    email: string
+    password: string
+}
+
+const Login: FC<MapStatePropsType & MapDispatchPropsType> = (props) => {
     const onSubmit = (formData: any) => {
         props.login(formData.email, formData.password, formData.rememberMe, formData.captchaUrl);
     }
 
-    // if (props.isAuth) {
-    //     return <Navigate to={"/profile"} />
-    // }
+    if (props.isAuth) {
+        return <Navigate to={"/profile"} /> 
+    }
 
     return <div>
         <h1>LOGIN</h1>
@@ -56,7 +75,7 @@ const Login: FC<PropsType>= (props) => {
     </div>
 }
 
-const mapStateToProps = (state: AppStateType) => ({
+const mapStateToProps = (state: AppStateType): MapStatePropsType => ({
     captchaUrl: state.auth.captchaUrl,
     isAuth: state.auth.isAuth
 })

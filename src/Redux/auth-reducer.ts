@@ -1,6 +1,6 @@
 import { AppStateType } from './redux-store';
 import { stopSubmit } from "redux-form";
-import { AuthAPI, ResultCodesEnum, ResultCodeWithCaptcha, SecurityAPI } from "../api/api";
+import { AuthAPI, ResultCodesEnum, ResultCodeWithCaptcha, SecurityAPI } from "../api/api.ts";
 import { ThunkAction } from 'redux-thunk';
 
 let SET_USER_DATA = 'SET_USER_DATA';
@@ -79,7 +79,7 @@ export const login = (email: string, password: string, rememberMe: boolean, capt
         }
         
         let message = data.data.messages.length > 0 ? data.data.messages[0] : "Some error";
-        // @ts-ignore
+
         dispatch(stopSubmit("login", {_error: message}));
     }
 }

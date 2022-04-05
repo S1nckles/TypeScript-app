@@ -80,12 +80,14 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 import Dialogs from "./Dialogs";
-import { addMessageCreator } from "../../Redux/dialogs-reducer.ts";
+import { addMessage } from "../../Redux/dialogs-reducer.ts";
 import { connect } from "react-redux";
 import { compose } from 'redux';
+import { AppStateType } from "../../Redux/redux-store";
+import actions from "redux-form/lib/actions";
 // import { withAuthRedirect } from "../hoc/withAuthRedirect";
 
-let mapStateToProps = (state) => {
+let mapStateToProps = (state: AppStateType) => {
     return {
         dialogPage: state.dialogPage,
         isAuth: state.auth.isAuth
@@ -93,14 +95,14 @@ let mapStateToProps = (state) => {
 }
 let mapDispatchToProps = (dispatch) => {
     return {
-        sendMessage: () => {
-            dispatch(addMessageCreator());
+        sendMessage: (newMessageText) => {
+            dispatch(actions.addMessage(newMessageText));
         }
     }
 }
 
-export default compose(
-    connect(mapStateToProps, mapDispatchToProps)//,
+export default compose<React.ComponentType>(
+    connect(mapStateToProps, {...actions})//,
     // withAuthRedirect
 )(Dialogs);
 

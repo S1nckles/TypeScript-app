@@ -1,8 +1,15 @@
-import React from "react";
+import React, { FC, MouseEventHandler } from "react";
+//@ts-ignore
 import s from './Header.module.css';
 import {NavLink} from 'react-router-dom';
 
-const Header = (props) => {
+type PropsType = {
+    login: boolean
+    logOut: MouseEventHandler<HTMLButtonElement>
+    isAuth: boolean
+}
+
+const Header: FC<PropsType> = (props) => {
     return (
         <header className={s.header}>
             <div>

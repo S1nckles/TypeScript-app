@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import MyPostsContainer from "./MyPosts/MyPostsContainer.tsx";
-import ProfileInfo from "./ProfileInfo/ProfileInfo";
+import ProfileInfo from "./ProfileInfo/ProfileInfo.tsx";
 //@ts-ignore
 import ProfileType from "../../types";
 

@@ -1,4 +1,4 @@
-import { ProfileAPI, ResultCodesEnum, UsersAPI } from "../api/api";
+import { ProfileAPI, ResultCodesEnum, UsersAPI } from "../api/api.ts";
 import { stopSubmit } from "redux-form";
 import { PostType, ProfileType, ContactsType, PhotosType  } from "../types/Types";
 import { ThunkAction } from "redux-thunk";
@@ -117,7 +117,8 @@ export const savePhoto = (photoFile: any)
 }
 export const saveProfile = (profile: ProfileType)
             : ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes> => async (dispatch, getState) => {
-    const userId = initialState.auth.userId;         //const userId = getState().auth.userId;
+                const userId = getState().auth.userId;
+                // const userId = initialState.auth.userId;         //const userId = getState().auth.userId;
     const response = await ProfileAPI.saveProfile(profile);
         
     if (response.data.resultCode === 0) {
